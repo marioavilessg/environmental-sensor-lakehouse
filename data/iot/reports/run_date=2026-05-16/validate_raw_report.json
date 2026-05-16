@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-05-16T13:13:31+00:00",
+  "malformed_rows": 0,
+  "missing_header_columns": [],
+  "raw_file": "/home/jovyan/work/data/iot/raw/run_date=2026-05-16/iot_sensor_aula_01_2026-05-16.csv",
+  "required_columns": [
+    "event_id",
+    "device_id",
+    "timestamp",
+    "temperature",
+    "humidity",
+    "battery",
+    "status",
+    "source"
+  ],
+  "rows_missing_columns": 0,
+  "rows_with_required_columns": 1894,
+  "run_date": "2026-05-16",
+  "total_lines": 1894
+}

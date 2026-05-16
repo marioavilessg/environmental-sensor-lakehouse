@@ -1,0 +1,7 @@
+{
+  "bronze_path": "hdfs://namenode:9000/datalake/bronze/iot/sensor_aula_01/year=2026/month=05/day=16/*.csv",
+  "invalid_records_skipped": 200,
+  "run_date": "2026-05-16",
+  "silver_uri": "s3a://datalake/silver/iot/sensor_aula_01/events",
+  "valid_records_written": 1694
+}

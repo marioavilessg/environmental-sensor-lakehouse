@@ -1,0 +1,7 @@
+{
+  "downloaded_objects": 1,
+  "invalid_records": 0,
+  "records_checked": 1694,
+  "run_date": "2026-05-16",
+  "silver_prefix": "s3://datalake/silver/iot/sensor_aula_01/events"
+}

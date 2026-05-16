@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="2100" viewBox="0 0 1500 2100">
+  <defs>
+    <style>
+      .title{font:700 44px Arial,sans-serif;fill:#172033}
+      .sub{font:400 24px Arial,sans-serif;fill:#42526b}
+      .bt{font:700 27px Arial,sans-serif;fill:#172033}
+      .tx{font:400 21px Arial,sans-serif;fill:#344563}
+      .sm{font:400 18px Arial,sans-serif;fill:#344563}
+      .a{stroke:#5e6c84;stroke-width:4;fill:none;marker-end:url(#ah)}
+      .d{stroke:#6b778c;stroke-width:3;fill:none;stroke-dasharray:10 9;marker-end:url(#ah)}
+      .esp{fill:#e6f4ff;stroke:#1d7ed0;stroke-width:3;rx:18}
+      .local{fill:#fff7e6;stroke:#f0a202;stroke-width:3;rx:18}
+      .hdfs{fill:#edf7ed;stroke:#2e7d32;stroke-width:3;rx:18}
+      .spark{fill:#fff0f0;stroke:#c62828;stroke-width:3;rx:18}
+      .minio{fill:#f0edff;stroke:#5e35b1;stroke-width:3;rx:18}
+      .bi{fill:#eef7f8;stroke:#00796b;stroke-width:3;rx:18}
+      .air{fill:#f4f5f7;stroke:#6b778c;stroke-width:3;rx:18}
+    </style>
+    <marker id="ah" markerWidth="16" markerHeight="12" refX="14" refY="6" orient="auto">
+      <path d="M0 0 L16 6 L0 12z" fill="#5e6c84"/>
+    </marker>
+  </defs>
+  <rect width="1500" height="2100" fill="#fff"/>
+  <text x="70" y="85" class="title">Pipeline Big Data IoT con arquitectura Medallon</text>
+  <text x="70" y="125" class="sub">ESP32 real + fallback | Bronze HDFS | Silver/Gold MinIO | Superset</text>
+
+  <rect x="90" y="220" width="300" height="300" class="air"/>
+  <text x="125" y="275" class="bt">Airflow</text>
+  <text x="125" y="315" class="tx">DAG:</text>
+  <text x="125" y="345" class="tx">iot_medallion_pipeline</text>
+  <text x="125" y="400" class="sm">Orquesta las tareas reales.</text>
+  <text x="125" y="430" class="sm">Alternativa manual:</text>
+  <text x="125" y="460" class="sm">run_iot_pipeline.py</text>
+
+  <rect x="520" y="180" width="540" height="125" class="esp"/>
+  <text x="565" y="230" class="bt">1. ESP32</text>
+  <text x="565" y="268" class="tx">Sensor de temperatura y humedad</text>
+  <text x="565" y="294" class="sm">HTTP POST CSV a :5050/iot/events</text>
+
+  <rect x="520" y="360" width="540" height="125" class="local"/>
+  <text x="565" y="410" class="bt">2. Receptor HTTP</text>
+  <text x="565" y="448" class="tx">iot_http_receiver.py</text>
+  <text x="565" y="474" class="sm">Guarda CSV en data/iot/inbox</text>
+
+  <rect x="1110" y="360" width="300" height="125" class="local"/>
+  <text x="1145" y="410" class="bt">Fallback</text>
+  <text x="1145" y="448" class="tx">generate_iot_data.py</text>
+  <text x="1145" y="474" class="sm">Datos demo reproducibles</text>
+
+  <rect x="520" y="540" width="540" height="125" class="local"/>
+  <text x="565" y="590" class="bt">3. Lote raw</text>
+  <text x="565" y="628" class="tx">collect_iot_batch.py</text>
+  <text x="565" y="654" class="sm">Elige ESP32 si hay datos suficientes</text>
+
+  <rect x="520" y="720" width="540" height="125" class="local"/>
+  <text x="565" y="770" class="bt">4. Validacion CSV</text>
+  <text x="565" y="808" class="tx">validate_raw.py</text>
+  <text x="565" y="834" class="sm">Cabecera, columnas y filas mal formadas</text>
+
+  <rect x="520" y="900" width="540" height="125" class="hdfs"/>
+  <text x="565" y="950" class="bt">5. Bronze HDFS</text>
+  <text x="565" y="988" class="tx">load_bronze_hdfs.py</text>
+  <text x="565" y="1014" class="sm">CSV bruto en /datalake/bronze/iot/...</text>
+
+  <rect x="520" y="1080" width="540" height="125" class="spark"/>
+  <text x="565" y="1130" class="bt">6. Calidad Bronze</text>
+  <text x="565" y="1168" class="tx">quality_bronze.py + Spark</text>
+  <text x="565" y="1194" class="sm">Nulos, tipos, rangos, duplicados y fechas</text>
+
+  <rect x="1110" y="1080" width="300" height="125" class="hdfs"/>
+  <text x="1145" y="1130" class="bt">Cuarentena</text>
+  <text x="1145" y="1168" class="tx">HDFS</text>
+  <text x="1145" y="1194" class="sm">Invalidos + error_reason</text>
+
+  <rect x="520" y="1260" width="540" height="125" class="spark"/>
+  <text x="565" y="1310" class="bt">7. Silver limpio</text>
+  <text x="565" y="1348" class="tx">bronze_to_silver.py + Spark</text>
+  <text x="565" y="1374" class="sm">Filtra validos, tipa y normaliza</text>
+
+  <rect x="520" y="1440" width="540" height="125" class="minio"/>
+  <text x="565" y="1490" class="bt">8. Silver MinIO</text>
+  <text x="565" y="1528" class="tx">Parquet particionado</text>
+  <text x="565" y="1554" class="sm">s3://datalake/silver/iot/...</text>
+
+  <rect x="520" y="1620" width="540" height="125" class="spark"/>
+  <text x="565" y="1670" class="bt">9. Gold analitico</text>
+  <text x="565" y="1708" class="tx">silver_to_gold.py + Spark</text>
+  <text x="565" y="1734" class="sm">Metricas hora, calidad, bateria, incidencias</text>
+
+  <rect x="520" y="1800" width="540" height="125" class="minio"/>
+  <text x="565" y="1850" class="bt">10. Gold MinIO</text>
+  <text x="565" y="1888" class="tx">hourly_metrics, daily_quality...</text>
+  <text x="565" y="1914" class="sm">Datasets finales en Parquet</text>
+
+  <rect x="1110" y="1800" width="300" height="125" class="bi"/>
+  <text x="1145" y="1850" class="bt">Superset</text>
+  <text x="1145" y="1888" class="tx">DuckDB + httpfs</text>
+  <text x="1145" y="1914" class="sm">Lee Gold desde MinIO</text>
+
+  <path d="M790 305v50" class="a"/><path d="M790 485v50" class="a"/>
+  <path d="M790 665v50" class="a"/><path d="M790 845v50" class="a"/>
+  <path d="M790 1025v50" class="a"/><path d="M790 1205v50" class="a"/>
+  <path d="M790 1385v50" class="a"/><path d="M790 1565v50" class="a"/>
+  <path d="M790 1745v50" class="a"/><path d="M1060 422h45" class="a"/>
+  <path d="M1110 485c-45 45-55 45-50 118" class="a"/>
+  <path d="M1060 1142h45" class="a"/><path d="M1060 1862h45" class="a"/>
+
+  <path d="M390 390c55 20 75 205 125 212" class="d"/>
+  <path d="M390 420c65 55 75 350 125 362" class="d"/>
+  <path d="M390 450c75 95 80 500 125 512" class="d"/>
+  <path d="M390 480c85 135 85 640 125 662" class="d"/>
+
+  <rect x="80" y="2000" width="1340" height="65" fill="#fff" stroke="#dfe4ea" stroke-width="2" rx="14"/>
+  <text x="115" y="2040" class="sm">Leyenda: azul=ESP32/API | amarillo=local CSV | verde=HDFS | rojo=Spark | morado=MinIO/Parquet | turquesa=Superset</text>
+</svg>

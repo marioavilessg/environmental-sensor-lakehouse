@@ -1,0 +1,26 @@
+{
+  "gold_outputs": {
+    "anomalies_by_type": {
+      "records": 3,
+      "uri": "s3a://datalake/gold/iot/sensor_aula_01/anomalies_by_type"
+    },
+    "battery_hourly": {
+      "records": 3,
+      "uri": "s3a://datalake/gold/iot/sensor_aula_01/battery_hourly"
+    },
+    "daily_quality": {
+      "records": 1,
+      "uri": "s3a://datalake/gold/iot/sensor_aula_01/daily_quality"
+    },
+    "events_by_hour": {
+      "records": 3,
+      "uri": "s3a://datalake/gold/iot/sensor_aula_01/events_by_hour"
+    },
+    "hourly_metrics": {
+      "records": 3,
+      "uri": "s3a://datalake/gold/iot/sensor_aula_01/hourly_metrics"
+    }
+  },
+  "run_date": "2026-05-16",
+  "silver_prefix": "s3://datalake/silver/iot/sensor_aula_01/events"
+}

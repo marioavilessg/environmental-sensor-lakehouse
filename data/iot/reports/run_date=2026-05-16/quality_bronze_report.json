@@ -1,0 +1,40 @@
+{
+  "bronze_path": "hdfs://namenode:9000/datalake/bronze/iot/sensor_aula_01/year=2026/month=05/day=16/*.csv",
+  "duplicates": 0,
+  "invalid_records": 200,
+  "null_timestamps": 5,
+  "out_of_range_values": 83,
+  "quarantine_path": "hdfs://namenode:9000/datalake/quarantine/iot/sensor_aula_01/year=2026/month=05/day=16",
+  "rules": {
+    "battery": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "humidity": {
+      "max": 100.0,
+      "min": 0.0
+    },
+    "required_columns": [
+      "event_id",
+      "device_id",
+      "timestamp",
+      "temperature",
+      "humidity",
+      "battery",
+      "status",
+      "source"
+    ],
+    "status_allowed": [
+      "OK",
+      "WARN",
+      "ERROR"
+    ],
+    "temperature": {
+      "max": 80.0,
+      "min": -20.0
+    }
+  },
+  "run_date": "2026-05-16",
+  "total_records": 1894,
+  "valid_records": 1694
+}

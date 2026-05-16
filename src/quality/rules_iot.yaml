@@ -1,0 +1,22 @@
+required_columns:
+  - event_id
+  - device_id
+  - timestamp
+  - temperature
+  - humidity
+  - battery
+  - status
+  - source
+temperature:
+  min: -20.0
+  max: 80.0
+humidity:
+  min: 0.0
+  max: 100.0
+battery:
+  min: 0.0
+  max: 100.0
+status_allowed:
+  - OK
+  - WARN
+  - ERROR
