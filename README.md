@@ -36,6 +36,7 @@ src/
     medallion/
     superset/
   quality/rules_iot.yaml
+requirements.txt
 data/iot/
   inbox/
   raw/
@@ -62,6 +63,17 @@ Resumen de carpetas:
 - `docs/`: arquitectura, ejecucion, diccionario de datos y guia de exposicion.
 - `esp32/`: sketch del dispositivo IoT.
 - `scripts/`: script auxiliar de arranque Hadoop.
+- `requirements.txt`: dependencias Python usadas por los scripts y documentacion para ejecucion local.
+
+## Dependencias Python
+
+El proyecto esta preparado para ejecutarse con Docker Compose. Las imagenes ya instalan las dependencias necesarias, pero se incluye `requirements.txt` para documentarlas y para ejecucion local si hiciera falta:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Para el pipeline completo tambien se necesita el entorno de servicios definido en `docker-compose.yml`: Hadoop/HDFS, Spark, MinIO, Airflow y Superset.
 
 ## Arranque
 
