@@ -176,5 +176,5 @@ data/iot/reports/run_date=2026-05-16/
 - [Arquitectura](docs/arquitectura.md)
 - [Diccionario de datos](docs/diccionario_datos.md)
 - [Manual de ejecucion](docs/manual_ejecucion.md)
-- [Guia de plataformas y exposicion](docs/guia_plataformas_y_exposicion.md)
-- [Diagrama y ejecucion](docs/diagrama_y_ejecucion.md)
+- [Preparacion de la presentacion](docs/preparacion_presentacion.md)
+- [Diagrama grande del pipeline](docs/diagrama_pipeline_grande.svg)

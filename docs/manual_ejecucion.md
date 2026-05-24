@@ -1,9 +1,9 @@
 # Manual de ejecucion
 
-Para una explicacion completa con diagrama del flujo, consultar tambien:
+Para preparar la exposicion con el recorrido por pantallas, consultar tambien:
 
 ```text
-docs/diagrama_y_ejecucion.md
+docs/preparacion_presentacion.md
 ```
 
 ## Arranque del entorno

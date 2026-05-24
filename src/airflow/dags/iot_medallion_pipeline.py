@@ -11,6 +11,8 @@ default_args = {
     "retries": 1,
     "retry_delay": 30,
 }
+# Poniendo ds coge la fecha actual
+PIPELINE_RUN_DATE = "{{ dag_run.conf.get('run_date', '2026-05-16') }}"
 
 
 def jupyter_cmd(command: str) -> str:
@@ -35,43 +37,43 @@ with DAG(
     check_or_collect_esp32_data = BashOperator(
         task_id="check_or_collect_esp32_data",
         bash_command=jupyter_cmd(
-            "python src/jobs/ingestion/collect_iot_batch.py --date {{ ds }} --min-real-records 10"
+            f"python src/jobs/ingestion/collect_iot_batch.py --date {PIPELINE_RUN_DATE} --min-real-records 10"
         ),
     )
 
     validate_raw = BashOperator(
         task_id="validate_raw",
-        bash_command=jupyter_cmd("python src/jobs/quality/validate_raw.py --date {{ ds }}"),
+        bash_command=jupyter_cmd(f"python src/jobs/quality/validate_raw.py --date {PIPELINE_RUN_DATE}"),
     )
 
     load_bronze_hdfs = BashOperator(
         task_id="load_bronze_hdfs",
-        bash_command=jupyter_cmd("python src/jobs/medallion/load_bronze_hdfs.py --date {{ ds }}"),
+        bash_command=jupyter_cmd(f"python src/jobs/medallion/load_bronze_hdfs.py --date {PIPELINE_RUN_DATE}"),
     )
 
     quality_bronze = BashOperator(
         task_id="quality_bronze",
-        bash_command=jupyter_cmd("python src/jobs/quality/quality_bronze.py --date {{ ds }}"),
+        bash_command=jupyter_cmd(f"python src/jobs/quality/quality_bronze.py --date {PIPELINE_RUN_DATE}"),
     )
 
     bronze_to_silver = BashOperator(
         task_id="bronze_to_silver",
-        bash_command=jupyter_cmd("python src/jobs/medallion/bronze_to_silver.py --date {{ ds }}"),
+        bash_command=jupyter_cmd(f"python src/jobs/medallion/bronze_to_silver.py --date {PIPELINE_RUN_DATE}"),
     )
 
     validate_silver = BashOperator(
         task_id="validate_silver",
-        bash_command=jupyter_cmd("python src/jobs/quality/validate_silver.py --date {{ ds }}"),
+        bash_command=jupyter_cmd(f"python src/jobs/quality/validate_silver.py --date {PIPELINE_RUN_DATE}"),
     )
 
     silver_to_gold = BashOperator(
         task_id="silver_to_gold",
-        bash_command=jupyter_cmd("python src/jobs/medallion/silver_to_gold.py --date {{ ds }}"),
+        bash_command=jupyter_cmd(f"python src/jobs/medallion/silver_to_gold.py --date {PIPELINE_RUN_DATE}"),
     )
 
     publish_gold_superset = BashOperator(
         task_id="publish_gold_superset",
-        bash_command=jupyter_cmd("python src/jobs/superset/publish_gold_superset.py --date {{ ds }}"),
+        bash_command=jupyter_cmd(f"python src/jobs/superset/publish_gold_superset.py --date {PIPELINE_RUN_DATE}"),
     )
 
     (

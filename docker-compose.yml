@@ -235,6 +235,8 @@
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
       - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__WORKERS=1
+      - AIRFLOW__WEBSERVER__WEB_SERVER_WORKER_TIMEOUT=300
     ports:
       - "8081:8080" # Usamos 8081 porque 8080 podrÃ­a ocuparlo cAdvisor o YARN en algunos host
     volumes:
@@ -245,7 +247,7 @@
     deploy:
       resources:
         limits:
-          memory: 512M
+          memory: 1G
 
   airflow-scheduler:
     build:
